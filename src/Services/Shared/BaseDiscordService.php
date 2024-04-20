@@ -6,14 +6,38 @@ use GuzzleHttp\Client;
 
 abstract class BaseDiscordService
 {
+    /**
+     * Last Request
+     * 
+     * @var mixed
+     */
     protected mixed $last_request;
 
-    protected mixed $response_body;
+    /**
+     * Response Body
+     * 
+     * @return string
+     */
+    protected string $response_body;
     
+    /**
+     * Create instance base service
+     * 
+     * @param \GuzzleHttp\Client $client
+     * @param string readonly $id
+     * @param string readonly $token
+     */
     public function __construct(
         protected readonly Client $client
     ) { }
 
+    /**
+     * Make Multipart request
+     * 
+     * @param string $end_point
+     * @param array $payload
+     * @return array
+     */
     protected function postMultipart(string $end_point, array $payload=[]): array
     {
         $this->last_request = $payload;

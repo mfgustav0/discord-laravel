@@ -45,12 +45,12 @@ class DiscordServiceProvider extends ServiceProvider
         if ($this->isLumen()) {
             $this->app->configure('discord');
         }
-        $this->mergeConfigFrom(__DIR__.'/../config/discord.php', 'discord');
 
-        // Main Service        
+        $this->mergeConfigFrom(__DIR__.'/../config/discord.php', 'discord');
+      
         $this->app->bind('discord', function() {
             $client = new Client([
-                'base_uri' => $this->app['config']->get('discord.url'),
+                'base_uri' => 'https://discord.com/api/',
                 'timeout'  => 2.0,
             ]);
 
@@ -58,7 +58,12 @@ class DiscordServiceProvider extends ServiceProvider
         });
     }
 
-    private function isLumen()
+    /**
+     * Check if is lumen app
+     * 
+     * @return bool
+     */
+    private function isLumen(): bool
     {
         return is_a(\app(), 'Laravel\Lumen\Application');
     }
